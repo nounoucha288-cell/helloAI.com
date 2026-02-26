@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA Wikipédia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #2d89ef;
+      color: white;
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    main {
+      flex: 1;
+      width: 90%;
+      max-width: 700px;
+      margin: 2rem 0;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #2d89ef;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1a5cb8;
+    }
+    .keywords-section {
+      margin-top: 2rem;
+    }
+    .keywords-section h4 {
+      margin: 0.5rem 0;
+    }
+    .keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .keyword {
+      background-color: #d0e4ff;
+      padding: 0.5rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .keyword:hover {
+      background-color: #a0c8ff;
+    }
+    .response {
+      margin-top: 2rem;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<header>🤖 IA Connectée à Wikipédia</header>
+
+<main>
+  <input type="text" id="query" placeholder="Pose une question ou un mot clé...">
+  <button onclick="askWikipedia()">Chercher</button>
+
+  <!-- Liste des mots clés par thème -->
+  <div class="keywords-section">
+    <h4>Histoire</h4>
+    <div class="keywords">
+      <div class="keyword" onclick="setKeyword('Algérie')">Algérie</div>
+      <div class="keyword" onclick="setKeyword('Napoléon Bonaparte')">Napoléon Bonaparte</div>
+      <div class="keyword" onclick="setKeyword('Seconde Guerre mondiale')">Seconde Guerre mondiale</div>
+      <div class="keyword" onclick="setKeyword('Révolution française')">Révolution française</div>
+      <div class="keyword" onclick="setKeyword('Auschwitz')">Auschwitz</div>
+      <div class="keyword" onclick="setKeyword('D-Day')">D-Day</div>
+      <div class="keyword" onclick="setKeyword('Empire romain')">Empire romain</div>
+      <div class="keyword" onclick="setKeyword('Indépendance de l’Inde')">Indépendance de l’Inde</div>
+      <div class="keyword" onclick="setKeyword('Guerre d’Algérie')">Guerre d’Algérie</div>
+      <div class="keyword" onclick="setKeyword('Charlemagne')">Charlemagne</div>
+    </div>
+  </div>
+
+  <div class="keywords-section">
+    <h4>Science</h4>
+    <div class="keywords">
+      <div class="keyword" onclick="setKeyword('Albert Einstein')">Albert Einstein</div>
+      <div class="keyword" onclick="setKeyword('Isaac Newton')">Isaac Newton</div>
+      <div class="keyword" onclick="setKeyword('Théorie de la relativité')">Relativité</div>
+      <div class="keyword" onclick="setKeyword('ADN')">ADN</div>
+      <div class="keyword" onclick="setKeyword('Cellule')">Cellule</div>
+      <div class="keyword" onclick="setKeyword('Gravité')">Gravité</div>
+      <div class="keyword" onclick="setKeyword('Tectonique des plaques')">Tectonique des plaques</div>
+      <div class="keyword" onclick="setKeyword('Énergie solaire')">Énergie solaire</div>
+      <div class="keyword" onclick="setKeyword('Volcan')">Volcan</div>
+      <div class="keyword" onclick="setKeyword('Chimie')">Chimie</div>
+    </div>
+  </div>
+
+  <div class="keywords-section">
+    <h4>Technologie</h4>
+    <div class="keywords">
+      <div class="keyword" onclick="setKeyword('Intelligence artificielle')">IA</div>
+      <div class="keyword" onclick="setKeyword('Python (langage)')">Python</div>
+      <div class="keyword" onclick="setKeyword('Robotique')">Robotique</div>
+      <div class="keyword" onclick="setKeyword('Internet')">Internet</div>
+      <div class="keyword" onclick="setKeyword('Blockchain')">Blockchain</div>
+      <div class="keyword" onclick="setKeyword('Voiture électrique')">Voiture électrique</div>
+      <div class="keyword" onclick="setKeyword('Tesla')">Tesla</div>
+      <div class="keyword" onclick="setKeyword('Téléphone mobile')">Téléphone mobile</div>
+      <div class="keyword" onclick="setKeyword('SpaceX')">SpaceX</div>
+      <div class="keyword" onclick="setKeyword('Google')">Google</div>
+    </div>
+  </div>
+
+  <div class="keywords-section">
+    <h4>Géographie</h4>
+    <div class="keywords">
+      <div class="keyword" onclick="setKeyword('Sahara')">Sahara</div>
+      <div class="keyword" onclick="setKeyword('Amazonie')">Amazonie</div>
+      <div class="keyword" onclick="setKeyword('Mount Everest')">Mount Everest</div>
+      <div class="keyword" onclick="setKeyword('Nil')">Nil</div>
+      <div class="keyword" onclick="setKeyword('Pacifique')">Pacifique</div>
+      <div class="keyword" onclick="setKeyword('Australie')">Australie</div>
+      <div class="keyword" onclick="setKeyword('France')">France</div>
+      <div class="keyword" onclick="setKeyword('Alaska')">Alaska</div>
+      <div class="keyword" onclick="setKeyword('Europe')">Europe</div>
+      <div class="keyword" onclick="setKeyword('Afrique')">Afrique</div>
+    </div>
+  </div>
+
+  <div class="keywords-section">
+    <h4>Art & Culture</h4>
+    <div class="keywords">
+      <div class="keyword" onclick="setKeyword('Leonardo da Vinci')">Leonardo da Vinci</div>
+      <div class="keyword" onclick="setKeyword('Vincent van Gogh')">Van Gogh</div>
+      <div class="keyword" onclick="setKeyword('Mona Lisa')">Mona Lisa</div>
+      <div class="keyword" onclick="setKeyword('Shakespeare')">Shakespeare</div>
+      <div class="keyword" onclick="setKeyword('Mozart')">Mozart</div>
+      <div class="keyword" onclick="setKeyword('Ballet')">Ballet</div>
+      <div class="keyword" onclick="setKeyword('Cinéma')">Cinéma</div>
+      <div class="keyword" onclick="setKeyword('Musique classique')">Musique classique</div>
+      <div class="keyword" onclick="setKeyword('Opéra')">Opéra</div>
+      <div class="keyword" onclick="setKeyword('Chien domestique')">Chien domestique</div>
+    </div>
+  </div>
+
+  <div class="response" id="response">Les réponses apparaîtront ici.</div>
+</main>
+
+<script>
+function setKeyword(word) {
+  document.getElementById('query').value = word;
+  askWikipedia();
+}
+
+async function askWikipedia() {
+  const query = document.getElementById('query').value;
+  const responseDiv = document.getElementById('response');
+
+  if (!query) {
+    responseDiv.innerHTML = "Veuillez entrer un mot ou une question.";
+    return;
+  }
+
+  responseDiv.innerHTML = "Recherche en cours... ⏳";
+
+  try {
+    const apiUrl = `https://fr.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    if (data.extract) {
+      responseDiv.innerHTML = `<h3>${data.title}</h3><p>${data.extract}</p>
+                               <a href="https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}" target="_blank">Lire plus sur Wikipédia</a>`;
+    } else {
+      responseDiv.innerHTML = "Aucun résultat trouvé pour ce mot clé.";
+    }
+  } catch (error) {
+    responseDiv.innerHTML = "Erreur lors de la recherche. Vérifie ta connexion.";
+    console.error(error);
+  }
+}
+</script>
+
+</body>
+</html>
